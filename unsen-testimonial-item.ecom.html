@@ -30,35 +30,33 @@
                             {% if bk_stts.heading != blank %}
                                 <h3 class="t4s-testimonial-heading">{{ bk_stts.heading }}</h3>
                             {% endif %}
-                            {% if bk_stts.content != blank %}
-                                <div class="t4s-testimonial-content">
-                                {{ bk_stts.content }}
-                                </div>
-                            {% endif %}
+                            $(bk_stts?.content ? "<div class="t4s-testimonial-content">
+                                $(bk_stts?.content)
+                                </div>" : " ")
                             <div class="t4s-testimonial-author">
                             {%- if bk_stts.image_avata -%}
-                                {%- assign image = bk_stts.image_avata -%} 
+                                {%- assign image = bk_stts.image_avata -%}
                                 <div {% if image.presentation.focal_point != '50.0% 50.0%' %} style="object-position: {{image.presentation.focal_point}}"{% endif %} class="t4s-testimonial-avatar lazyloadt4s" data-bgset="{{ image | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1.5" style="background-image: url({{ image | image_url: width: 1 }};"></div>
                             {%- endif -%}
                                 <div class="t4s-author-metas">
                                 {% if bk_stts.title != blank %}<div class="t4s-testimonial-name">{{ bk_stts.title }}</div>{% endif %}
-                                {%- if bk_stts.pos != blank -%}<div class="t4s-testimonial-position">{{ bk_stts.pos }}</div>{%- endif -%} 
+                                {%- if bk_stts.pos != blank -%}<div class="t4s-testimonial-position">{{ bk_stts.pos }}</div>{%- endif -%}
                                 </div>
                             </div>
                             {%- if bk_stts.product != blank -%}
-                                {%- liquid 
+                                {%- liquid
                                 assign product = bk_stts.product
                                 assign image = product.images[0]
                                 assign placeholder_img = settings.placeholder_img
                                 assign price_varies_style = settings.price_varies_style
                                 if bk_stts.image_ratio == "t4s_ratioadapt"
                                     assign imgatt = ''
-                                else 
+                                else
                                     assign imgatt = 'data-'
-                                endif 
+                                endif
                                 -%}
                                 <div class="t4s-testimonial-product t4s_ratioadapt  t4s_position_8 t4s_cover" style="--aspect-ratioapt: {{ image.aspect_ratio | default: 1 }}">
-                                {%- render 'pr-loop-item', block: block, imgatt: imgatt, product: product, pr_url: pr_url, placeholder_img: placeholder_img, price_varies_style: price_varies_style -%}  
+                                {%- render 'pr-loop-item', block: block, imgatt: imgatt, product: product, pr_url: pr_url, placeholder_img: placeholder_img, price_varies_style: price_varies_style -%}
                                 </div>
                             {%- endif -%}
                             </div>
@@ -78,6 +76,9 @@
             preview: ``,
           },
         };
+      },
+      bk_stts() {
+        return this.data.settings;
       },
       settings() {
         return [
