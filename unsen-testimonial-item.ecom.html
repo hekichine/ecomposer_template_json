@@ -1,8 +1,7 @@
 <template>
-  <div
-    class="t4s-template-testimonials"
-    v-html="liquid('testimonial_item')"
-  ></div>
+  <div class="t4s-template-testimonials" v-html="liquid('testimonial_item')">
+    {{ data.settings?.heading}}
+  </div>
 </template>
 <script>
   export default {
