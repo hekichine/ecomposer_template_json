@@ -1,5 +1,5 @@
 <template>
-  <div class="t4s-template-testimonials">{{$(data.settings?.content)}}</div>
+  <div class="t4s-template-testimonials">{{ ${data.settings?.content} }}</div>
 </template>
 <script>
   export default {
@@ -168,26 +168,7 @@
                 `;
       },
     },
-    watch: {
-      activeMe(val) {
-        if (!val && this.editing === true) {
-          this.editing = false;
-          this.heading.settings.content = this.$refs.content.innerHTML;
-        }
-      },
-    },
-    methods: {
-      edit() {
-        if (this.editing === false) {
-          this.editing = true;
-          this.editingValue = this.data.settings.content;
-        }
-      },
-      update(e) {
-        if (this.editing) {
-          this.heading.settings.content = e.target.innerHTML;
-        }
-      },
-    },
+    watch: {},
+    methods: {},
   };
 </script>
