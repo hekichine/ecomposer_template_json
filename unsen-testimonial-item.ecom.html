@@ -1,5 +1,8 @@
 <template>
-  <div class="t4s-template-testimonials">{{ data.settings?.heading}}</div>
+  <div
+    class="t4s-template-testimonials"
+    v-html="liquid('testimonial_item')"
+  ></div>
 </template>
 <script>
   export default {
@@ -18,71 +21,49 @@
         return {
           testimonial_item: {
             code: `
-                      {%- liquid
-                        assign ter_des = ${this.data.settings?.ter_des}
-                      -%}
-                      <div class="t4s-col-item t4s-testimonial-item">
-                        <div class="t4s-testimonial-wrap">
-                            {% if ter_des == '5' %}
-                                <svg class="t4s-quote-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://svg.com/svg" version="1.1" width="48" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background: new 0 0 512 512" xml:space="preserve"><g><path xmlns="http://www.w3.org/2000/svg" d="m221 93.5h-140c-11.028 0-20 8.972-20 20v130c0 11.028 8.972 20 20 20h82.865c-9.372 45.993-50.458 80-97.865 80-2.761 0-5 2.238-5 5v65c0 2.762 2.239 5 5 5 96.495 0 175-78.505 175-175v-130c0-11.028-8.972-20-20-20zm10 150c0 89.31-71.321 162.274-160 164.926v-55.039c24.82-1.129 48.548-10.633 67.293-27.052 19.792-17.335 32.74-41.174 36.461-67.125.206-1.436-.221-2.89-1.171-3.985-.95-1.096-2.329-1.725-3.778-1.725h-88.805c-5.514 0-10-4.486-10-10v-130c0-5.514 4.486-10 10-10h140c5.514 0 10 4.486 10 10zm200-150h-140c-11.028 0-20 8.972-20 20v130c0 11.028 8.972 20 20 20h82.869c-9.372 45.993-50.459 80-97.869 80-2.762 0-5 2.238-5 5v65c0 2.762 2.238 5 5 5 96.495 0 175-78.505 175-175v-130c0-11.028-8.971-20-20-20zm10 150c0 89.31-71.321 162.274-160 164.926v-55.039c24.82-1.128 48.549-10.633 67.295-27.052 19.793-17.335 32.742-41.174 36.463-67.125.206-1.436-.222-2.89-1.171-3.985-.95-1.096-2.328-1.725-3.778-1.725h-88.809c-5.514 0-10-4.486-10-10v-130c0-5.514 4.486-10 10-10h140c5.514 0 10 4.486 10 10z" fill="#000000" data-original="#000000"></path></g></svg>
-                            {% endif %}
-                            {%- render 'rating_star',rating: ${this.data.settings?.rating} -%}
-                            
-                            <h3 class="t4s-testimonial-heading">{{ ${this.data.settings?.heading} }}</h3>                          
-                            <div class="t4s-testimonial-content">
-                            {{ ${this.data.settings?.content}}
-                            </div>
-                            <div class="t4s-testimonial-author">
-
-                            <div class="t4s-testimonial-avatar lazyloadt4s" data-bgset="{{ ${this.data.settings?.image_avata} | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1.5" style="background-image: url({{ ${this.data.settings?.image_avata} | image_url: width: 1 }};"></div>
-
-                            <div class="t4s-author-metas">
-                              <div class="t4s-testimonial-name">{{ ${this.data.settings?.auth_name}}</div>
-                              <div class="t4s-testimonial-position">{{ ${this.data.settings?.pos}}</div>
-                            </div>  
-                            </div>
-                           
-                                {%- liquid
-                                assign product = ${this.data.settings?.product}
-                                assign image = product.images[0]
-                                assign placeholder_img = settings.placeholder_img
-                                assign price_varies_style = settings.price_varies_style
-                                
-                                assign imgatt = ''
-                              
-                                -%}
-                                <div class="t4s-testimonial-product t4s_ratioadapt  t4s_position_8 t4s_cover" style="--aspect-ratioapt: {{ image.aspect_ratio | default: 1 }}">
-                                  {%- liquid
-                                        assign pr_url = product.url
-                                        assign placeholder_img = settings.placeholder_img
-                                      assign image = product.featured_media | default: placeholder_img
-                                    -%}
-                                    <div class="t4s-row t4s-space-item-inner t4s-widget__pr">
-                                      <div class="t4s-col-item t4s-widget_img_pr">
-                                        {%- if image != blank -%}
-                                          <a class="t4s-d-block t4s-pr t4s-oh t4s_ratio" href="{{ pr_url }}"style="{{ imgatt }}--aspect-ratioapt: {{ image.aspect_ratio | default: 1 }}">
-                                            <img data-main-img-change data-pr-img class="lazyloadt4s" data-src="{{ image | image_url: width: 1 }}" data-widths="[100,200,400,600,700,800,900,1000,1200,1400,1600]" data-optimumx="2" data-sizes="auto" src="{% render 'img_svg', w: image.width, h: image.height %}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt | escape }}">
-                                            <span class="lazyloadt4s-loader is-bg-img" style="background: url({{ image | image_url: width: 1 }});"></span>
-                                          </a>
-                                        {%- endif -%}
-                                      </div>
-                                      <div class="t4s-col-item t4s-col t4s-widget_if_pr">
-                                        {% if rating_pos == "1" %}
-                                              {%- render 'product-rating', product: product, app_review: app_review -%}
-                                        {% endif %}
-                                        {%- if pr_tags -%}
-                                            <div class="t4s-product-tag">{{ product.tags[0] }}</div>
-                                        {%- endif -%}
-                                        <a href="{{ pr_url }}" class="t4s-d-block t4s-widget__pr-title">{{ product.title }}</a>
-                                        {%- render 'product-price', class_price: 't4s-widget__pr-price', product: product, price_varies_style: price_varies_style, type: 'card', isGrouped: false -%}
-                                        {% if rating_pos == "2" %}
-                                              {%- render 'product-rating', product: product, app_review: app_review -%}
-                                            {% endif %}
-                                      </div>
-                                    </div>
-                                </div>
+                      {{ 'testimonials.css' | asset_url | stylesheet_tag }}
                       
+                      <div class="t4s-col-item t4s-testimonial-item" >
+                        <div class="t4s-testimonial-wrap">
+                          {% if ter_des == '5' %}
+                            <svg class="t4s-quote-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://svg.com/svg" version="1.1" width="48" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background: new 0 0 512 512" xml:space="preserve"><g><path xmlns="http://www.w3.org/2000/svg" d="m221 93.5h-140c-11.028 0-20 8.972-20 20v130c0 11.028 8.972 20 20 20h82.865c-9.372 45.993-50.458 80-97.865 80-2.761 0-5 2.238-5 5v65c0 2.762 2.239 5 5 5 96.495 0 175-78.505 175-175v-130c0-11.028-8.972-20-20-20zm10 150c0 89.31-71.321 162.274-160 164.926v-55.039c24.82-1.129 48.548-10.633 67.293-27.052 19.792-17.335 32.74-41.174 36.461-67.125.206-1.436-.221-2.89-1.171-3.985-.95-1.096-2.329-1.725-3.778-1.725h-88.805c-5.514 0-10-4.486-10-10v-130c0-5.514 4.486-10 10-10h140c5.514 0 10 4.486 10 10zm200-150h-140c-11.028 0-20 8.972-20 20v130c0 11.028 8.972 20 20 20h82.869c-9.372 45.993-50.459 80-97.869 80-2.762 0-5 2.238-5 5v65c0 2.762 2.238 5 5 5 96.495 0 175-78.505 175-175v-130c0-11.028-8.971-20-20-20zm10 150c0 89.31-71.321 162.274-160 164.926v-55.039c24.82-1.128 48.549-10.633 67.295-27.052 19.793-17.335 32.742-41.174 36.463-67.125.206-1.436-.222-2.89-1.171-3.985-.95-1.096-2.328-1.725-3.778-1.725h-88.809c-5.514 0-10-4.486-10-10v-130c0-5.514 4.486-10 10-10h140c5.514 0 10 4.486 10 10z" fill="#000000" data-original="#000000"></path></g></svg>
+                          {% endif %}
+                          {%- render 'rating_star',rating: ${this.data.settings?.rating} -%}
+                          {% if ${this.data.settings?.heading} != blank %}
+                            <h3 class="t4s-testimonial-heading">{{ ${this.data.settings?.heading} }}</h3>
+                          {% endif %}
+                          {% if ${this.data.settings?.content} != blank %}
+                            <div class="t4s-testimonial-content">
+                              {{ ${this.data.settings?.content} }}
                             </div>
+                          {% endif %}
+                          <div class="t4s-testimonial-author">
+                          {%- if ${this.data.settings?.image_avata} -%}
+                            {%- assign image = ${this.data.settings?.image_avata} -%} 
+                            <div {% if image.presentation.focal_point != '50.0% 50.0%' %} style="object-position: {{image.presentation.focal_point}}"{% endif %} class="t4s-testimonial-avatar lazyloadt4s" data-bgset="{{ image | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1.5" style="background-image: url({{ image | image_url: width: 1 }};"></div>
+                          {%- endif -%}
+                            <div class="t4s-author-metas">
+                              {% if ${this.data.settings?.auth_name} != blank %}<div class="t4s-testimonial-name">{{ ${this.data.settings?.auth_name} }}</div>{% endif %}
+                              {%- if ${this.data.settings?.pos} != blank -%}<div class="t4s-testimonial-position">{{ ${this.data.settings?.pos} }}</div>{%- endif -%} 
+                            </div>
+                          </div>
+                          {%- if ${this.data.settings?.product} != blank -%}
+                            {%- liquid 
+                              assign product = ${this.data.settings?.product}
+                              assign image = product.images[0]
+                              assign placeholder_img = settings.placeholder_img
+                              assign price_varies_style = settings.price_varies_style
+                              if ${this.data.settings?.image_ratio} == "t4s_ratioadapt"
+                                assign imgatt = ''
+                              else 
+                                assign imgatt = 'data-'
+                              endif 
+                              -%}
+                            <div class="t4s-testimonial-product t4s_ratioadapt  t4s_position_8 t4s_cover" style="--aspect-ratioapt: {{ image.aspect_ratio | default: 1 }}">
+                              {%- render 'pr-loop-item', block: block, imgatt: imgatt, product: product, pr_url: pr_url, placeholder_img: placeholder_img, price_varies_style: price_varies_style -%}  
+                            </div>
+                          {%- endif -%}
+                        </div>
                       </div>
                       <div class="t4s-d-none">
                           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -153,7 +134,7 @@
               {
                 type: "picker",
                 label: "Picker",
-                name: "picker",
+                name: "product",
                 description: "",
                 options: {
                   type: "product", // product, collection, page, article, blog, menu
