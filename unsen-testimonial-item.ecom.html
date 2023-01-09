@@ -1,0 +1,228 @@
+<template>
+  <div
+    class="t4s-template-testimonials"
+    v-html="liquid('testimonial_item')"
+  ></div>
+</template>
+<script>
+  export default {
+    name: "Unsen testimonial item",
+    props: {
+      data: {
+        type: Object,
+        default() {
+          return {};
+        },
+      },
+    },
+
+    computed: {
+      liquids() {
+        return {
+          testimonial_item: {
+            code: `
+                    <div class="t4s-col-item t4s-testimonial-item" data-select-flickity {{ block.shopify_attributes }}>
+                    {%- render 'quote_1', bk_stts: bk_stts,ter_des: ter_des -%}
+                    </div>
+                    <div class="t4s-d-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <symbol id="t4s_star"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M329.6 176H488C498.3 176 507.4 182.5 510.7 192.2C514 201.9 510.8 212.6 502.7 218.9L371.9 320.7L422.9 480.7C426.1 490.7 422.4 501.7 413.7 507.7C405.1 513.7 393.6 513.4 385.3 506.9L256 406.4L126.7 506.9C118.4 513.4 106.9 513.7 98.27 507.7C89.65 501.7 85.94 490.7 89.13 480.7L140.1 320.7L9.267 218.9C1.174 212.6-2.027 201.9 1.3 192.2C4.628 182.5 13.75 176 24 176H182.5L233.1 16.72C236.3 6.764 245.6 0 256 0C266.5 0 275.7 6.764 278.9 16.72L329.6 176z"/></svg></symbol>
+                            <symbol id="t4s_star_half"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M233.1 16.72C236.3 6.764 245.5 .0006 256 0V406.4L126.7 506.9C118.4 513.4 106.9 513.7 98.27 507.7C89.65 501.7 85.94 490.7 89.13 480.7L140.1 320.7L9.267 218.9C1.174 212.6-2.027 201.9 1.3 192.2C4.628 182.5 13.75 175.1 24 175.1H182.5L233.1 16.72z"/><path class="t4s-star-emty" d="M278.9 16.72C275.7 6.764 266.5 .0006 255.1 0V406.4L385.3 506.9C393.6 513.4 405.1 513.7 413.7 507.7C422.4 501.7 426.1 490.7 422.9 480.7L371.9 320.7L502.7 218.9C510.8 212.6 514 201.9 510.7 192.2C507.4 182.5 498.3 175.1 488 175.1H329.5L278.9 16.72z"/></svg></symbol>
+                        </svg>
+                        <style>
+                            path.t4s-star-emty {
+                                fill: #dedede;
+                            }
+                        </style>
+                    </div>
+                `,
+            preview: ``,
+          },
+        };
+      },
+      settings() {
+        return [
+          {
+            params: [
+              {
+                type: "textarea",
+                label: "Heading text",
+                name: "content",
+                options: {
+                  toolbar: "short",
+                  height: 80,
+                },
+              },
+
+              {
+                type: "link",
+                label: "Insert Link",
+                name: "link",
+              },
+              {
+                type: "choose",
+                label: '<span class="uppercase">HTML</span> Tag',
+                name: "tag",
+                options: {
+                  type: "heading",
+                },
+              },
+              {
+                type: "line",
+              },
+              {
+                type: "textarea",
+                label: "Sub heading text",
+                name: "sub_content",
+                options: {
+                  toolbar: "short",
+                  height: 80,
+                },
+              },
+              {
+                type: "line",
+              },
+              {
+                name: "style",
+                type: "dropdown",
+                label: "Heading style",
+                value: "title_2",
+                options: {
+                  default: false,
+                  values: {
+                    title_1: "Style 1",
+                    title_2: "Style 2",
+                    title_3: "Style 3",
+                    title_4: "Style 4",
+                    title_5: "Style 5",
+                    title_6: "Style 6",
+                    title_7: "Style 7",
+                    title_8: "Style 8",
+                    title_9: "Style 9",
+                    title_10: "Style 10",
+                    title_12: "Style 11",
+                    title_13: "Style 12",
+                  },
+                },
+              },
+              {
+                type: "picker",
+                label: "Icon",
+                name: "icon",
+                options: {
+                  type: "icon",
+                  layout: "grid",
+                  output: "value",
+                  multiple: false,
+                  simple: false,
+                  visible: {
+                    keep_data: false,
+                    condition: (data) => {
+                      return data["style"] == "title_6";
+                    },
+                  },
+                },
+              },
+            ],
+          },
+        ];
+      },
+
+      liquids() {
+        return {
+          render_css: {
+            code: `
+                      {{ 'top-head.css' | asset_url | stylesheet_tag }}
+                  `,
+            preview: ``,
+          },
+        };
+      },
+
+      style() {
+        return [
+          {
+            group_alias: "text",
+            options: {
+              group_title: "Heading",
+              group_name: "heading",
+              selector: " .element__heading .ecom__heading",
+            },
+            modify: {
+              remove: {
+                index: 0,
+                length: 1,
+              },
+              params: [
+                {
+                  position: 1,
+                  fields: [
+                    {
+                      alias: "justify-content",
+                      options: {
+                        label: "Alignment",
+                      },
+                    },
+                  ],
+                },
+                {
+                  position: 4,
+                  fields: { alias: "spacing" },
+                },
+              ],
+            },
+          },
+          {
+            group_alias: "text",
+            options: {
+              group_title: "Sub heading",
+              group_name: "subheading",
+              selector:
+                " .element__heading .t4s-top-heading-subheading .t4s-subtitle",
+            },
+            modify: {
+              params: {
+                position: 4,
+                fields: { alias: "spacing" },
+              },
+            },
+          },
+        ];
+      },
+
+      default() {},
+      css() {
+        return `
+                  .ecom__element--button-icon svg{width: 20px; height: auto}
+                  .t4s-cbl {
+                      color: #222
+                  }
+                  .heading-char {
+                      margin-top: 10px;
+                  }
+              `;
+      },
+    },
+    watch: {
+      activeMe(val) {
+        if (!val && this.editing === true) {
+          this.editing = false;
+          this.heading.settings.content = this.$refs.content.innerHTML;
+        }
+      },
+    },
+    methods: {
+      edit() {
+        if (this.editing === false) {
+          this.editing = true;
+          this.editingValue = this.data.settings.content;
+        }
+      },
+      update(e) {
+        if (this.editing) {
+          this.heading.settings.content = e.target.innerHTML;
+        }
+      },
+    },
+  };
+</script>

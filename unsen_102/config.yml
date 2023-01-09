@@ -1,0 +1,28 @@
+# theme deploy --allow-live
+# theme watch --allow-live
+# shopify login --store unsen-by-ecomposer.myshopify.com
+# shopify theme serve --live-reload full-page
+# shopify theme check
+# https://shopify.dev/themes/tools/theme-check/checks
+# http://127.0.0.1:9292
+# +1 855-766-3835
+#
+# https://dev-zonex.myshopify.com/     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
+# https://demo-zonex.myshopify.com/    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
+# https://demo-zonex-2.myshopify.com/  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
+# shopify theme dev --store dev-zonex.myshopify.com
+# shopify auth logout
+# https://shopify.dev/themes/tools/cli
+#theme_id: 136164344050
+# password: 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
+# store: unsen-by-ecomposer.myshopify.com
+development:
+  theme_id: 136164344050
+  password: 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
+  store: unsen-by-ecomposer.myshopify.com
+
+  ignore_files:
+    - templates/*.json
+    - config/settings_data.json
+    - templates/index.json
+    - assets/colors.css
