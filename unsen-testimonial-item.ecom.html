@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="t4s-template-testimonials"
-    v-html="liquid('testimonial_item')"
-  ></div>
+  <div class="t4s-template-testimonials">$(data.settings?.content)</div>
 </template>
 <script>
   export default {
@@ -21,6 +18,7 @@
         return {
           testimonial_item: {
             code: `
+              
                       <div class="t4s-col-item t4s-testimonial-item" data-select-flickity {{ block.shopify_attributes }}>
                         <div class="t4s-testimonial-wrap">
                             {% if ter_des == '5' %}
@@ -30,9 +28,7 @@
                             {% if bk_stts.heading != blank %}
                                 <h3 class="t4s-testimonial-heading">{{ bk_stts.heading }}</h3>
                             {% endif %}
-                            $(bk_stts?.content ? "<div class="t4s-testimonial-content">
-                                $(bk_stts?.content)
-                                </div>" : " ")
+                           
                             <div class="t4s-testimonial-author">
                             {%- if bk_stts.image_avata -%}
                                 {%- assign image = bk_stts.image_avata -%}
@@ -77,9 +73,7 @@
           },
         };
       },
-      bk_stts() {
-        return this.data.settings;
-      },
+
       settings() {
         return [
           {
