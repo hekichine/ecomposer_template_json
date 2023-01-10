@@ -37,6 +37,9 @@
                               {{ ${this.data.settings?.content} }}
                             </div>
                           {% endif %}
+                          <div class="t4s-testimonial-content">
+                              {{ ${this.data.settings?.content} }}
+                            </div>
                           <div class="t4s-testimonial-author">
                           {%- if ${this.data.settings?.image_avata} -%}
                             {%- assign image = ${this.data.settings?.image_avata} -%} 
@@ -53,11 +56,9 @@
                               assign image = product.images[0]
                               assign placeholder_img = settings.placeholder_img
                               assign price_varies_style = settings.price_varies_style
-                              if ${this.data.settings?.image_ratio} == "t4s_ratioadapt"
+                              
                                 assign imgatt = ''
-                              else 
-                                assign imgatt = 'data-'
-                              endif 
+                             
                               -%}
                             <div class="t4s-testimonial-product t4s_ratioadapt  t4s_position_8 t4s_cover" style="--aspect-ratioapt: {{ image.aspect_ratio | default: 1 }}">
                               {%- render 'pr-loop-item', block: block, imgatt: imgatt, product: product, pr_url: pr_url, placeholder_img: placeholder_img, price_varies_style: price_varies_style -%}  
@@ -148,9 +149,10 @@
                 description: "Set less than '1' to disable Rating.",
                 options: {
                   units: {
-                    px: {
+                    star: {
                       min: 0,
                       max: 5,
+                      step: 0.5,
                     },
                   },
                 },
