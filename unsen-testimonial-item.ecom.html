@@ -25,60 +25,7 @@
             code: `
                       {{ 'testimonials.css' | asset_url | stylesheet_tag }}
                       
-                      <div class="t4s-col-item t4s-testimonial-item t4s-testimonial-des-{{ ${this.data.settings?.ter_des} }}" >
-                        <div class="t4s-testimonial-wrap">
-                          {% if ter_des == '5' %}
-                            <svg class="t4s-quote-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svg="http://svg.com/svg" version="1.1" width="48" height="40" x="0" y="0" viewBox="0 0 512 512" style="enable-background: new 0 0 512 512" xml:space="preserve"><g><path xmlns="http://www.w3.org/2000/svg" d="m221 93.5h-140c-11.028 0-20 8.972-20 20v130c0 11.028 8.972 20 20 20h82.865c-9.372 45.993-50.458 80-97.865 80-2.761 0-5 2.238-5 5v65c0 2.762 2.239 5 5 5 96.495 0 175-78.505 175-175v-130c0-11.028-8.972-20-20-20zm10 150c0 89.31-71.321 162.274-160 164.926v-55.039c24.82-1.129 48.548-10.633 67.293-27.052 19.792-17.335 32.74-41.174 36.461-67.125.206-1.436-.221-2.89-1.171-3.985-.95-1.096-2.329-1.725-3.778-1.725h-88.805c-5.514 0-10-4.486-10-10v-130c0-5.514 4.486-10 10-10h140c5.514 0 10 4.486 10 10zm200-150h-140c-11.028 0-20 8.972-20 20v130c0 11.028 8.972 20 20 20h82.869c-9.372 45.993-50.459 80-97.869 80-2.762 0-5 2.238-5 5v65c0 2.762 2.238 5 5 5 96.495 0 175-78.505 175-175v-130c0-11.028-8.971-20-20-20zm10 150c0 89.31-71.321 162.274-160 164.926v-55.039c24.82-1.128 48.549-10.633 67.295-27.052 19.793-17.335 32.742-41.174 36.463-67.125.206-1.436-.222-2.89-1.171-3.985-.95-1.096-2.328-1.725-3.778-1.725h-88.809c-5.514 0-10-4.486-10-10v-130c0-5.514 4.486-10 10-10h140c5.514 0 10 4.486 10 10z" fill="#000000" data-original="#000000"></path></g></svg>
-                          {% endif %}
-                          {%- render 'rating_star',rating: ${this.data.settings?.rating} -%}
-                          {% if ${this.data.settings?.heading} != blank %}
-                            <h3 class="t4s-testimonial-heading">{{ ${this.data.settings?.heading} }}</h3>
-                          {% endif %}
-                          {% if ${this.data.settings?.content} != blank %}
-                            <div class="t4s-testimonial-content">
-                              {{ ${this.data.settings?.content} }}
-                            </div>
-                          {% endif %}
-                          <div class="t4s-testimonial-content">
-                              {{ ${this.data.settings?.content} }}
-                            </div>
-                          <div class="t4s-testimonial-author">
-                          {%- if ${this.data.settings?.image_avata} -%}
-                            {%- assign image = ${this.data.settings?.image_avata} -%} 
-                            <div {% if image.presentation.focal_point != '50.0% 50.0%' %} style="object-position: {{image.presentation.focal_point}}"{% endif %} class="t4s-testimonial-avatar lazyloadt4s" data-bgset="{{ image | image_url: width: 1 }}" data-sizes="auto"  data-optimumx="1.5" style="background-image: url({{ image | image_url: width: 1 }};"></div>
-                          {%- endif -%}
-                            <div class="t4s-author-metas">
-                              {% if ${this.data.settings?.auth_name} != blank %}<div class="t4s-testimonial-name">{{ ${this.data.settings?.auth_name} }}</div>{% endif %}
-                              {%- if ${this.data.settings?.pos} != blank -%}<div class="t4s-testimonial-position">{{ ${this.data.settings?.pos} }}</div>{%- endif -%} 
-                            </div>
-                          </div>
-                          {%- if ${this.data.settings?.product} != blank -%}
-                            {%- liquid 
-                              assign product = ${this.data.settings?.product}
-                              assign image = product.images[0]
-                              assign placeholder_img = settings.placeholder_img
-                              assign price_varies_style = settings.price_varies_style
-                              
-                                assign imgatt = ''
-                             
-                              -%}
-                            <div class="t4s-testimonial-product t4s_ratioadapt  t4s_position_8 t4s_cover" style="--aspect-ratioapt: {{ image.aspect_ratio | default: 1 }}">
-                              {%- render 'pr-loop-item', block: block, imgatt: imgatt, product: product, pr_url: pr_url, placeholder_img: placeholder_img, price_varies_style: price_varies_style -%}  
-                            </div>
-                          {%- endif -%}
-                        </div>
-                      </div>
-                      <div class="t4s-d-none">
-                          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <symbol id="t4s_star"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M329.6 176H488C498.3 176 507.4 182.5 510.7 192.2C514 201.9 510.8 212.6 502.7 218.9L371.9 320.7L422.9 480.7C426.1 490.7 422.4 501.7 413.7 507.7C405.1 513.7 393.6 513.4 385.3 506.9L256 406.4L126.7 506.9C118.4 513.4 106.9 513.7 98.27 507.7C89.65 501.7 85.94 490.7 89.13 480.7L140.1 320.7L9.267 218.9C1.174 212.6-2.027 201.9 1.3 192.2C4.628 182.5 13.75 176 24 176H182.5L233.1 16.72C236.3 6.764 245.6 0 256 0C266.5 0 275.7 6.764 278.9 16.72L329.6 176z"/></svg></symbol>
-                              <symbol id="t4s_star_half"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M233.1 16.72C236.3 6.764 245.5 .0006 256 0V406.4L126.7 506.9C118.4 513.4 106.9 513.7 98.27 507.7C89.65 501.7 85.94 490.7 89.13 480.7L140.1 320.7L9.267 218.9C1.174 212.6-2.027 201.9 1.3 192.2C4.628 182.5 13.75 175.1 24 175.1H182.5L233.1 16.72z"/><path class="t4s-star-emty" d="M278.9 16.72C275.7 6.764 266.5 .0006 255.1 0V406.4L385.3 506.9C393.6 513.4 405.1 513.7 413.7 507.7C422.4 501.7 426.1 490.7 422.9 480.7L371.9 320.7L502.7 218.9C510.8 212.6 514 201.9 510.7 192.2C507.4 182.5 498.3 175.1 488 175.1H329.5L278.9 16.72z"/></svg></symbol>
-                          </svg>
-                          <style>
-                              path.t4s-star-emty {
-                                  fill: #dedede;
-                              }
-                          </style>
-                      </div>
+                      <div>{{ ${this.data.settings?.heading} }}</div>
                   `,
             preview: ``,
           },
