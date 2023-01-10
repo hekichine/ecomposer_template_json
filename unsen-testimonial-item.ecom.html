@@ -5,8 +5,10 @@
   ></div>
 </template>
 <script>
+  import { Liquid } from "@/mixins";
   export default {
     name: "Unsen testimonial item",
+    mixins: [Liquid],
     props: {
       data: {
         type: Object,
